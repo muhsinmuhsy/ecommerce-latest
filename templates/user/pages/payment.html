@@ -1,0 +1,190 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'user/components/page-loader.html' %}
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+       
+        
+
+        <!--start to page content-->
+        <div class="page-content">
+            {% include 'user/components/alert.html' %}
+
+
+
+
+
+            <!--start cart list-->
+            <div class="cart-list d-flex flex-column gap-4">
+                
+                {% for cart in carts %}
+                    <div class="card rounded-3 overflow-hidden mb-1">
+                        <div class="card-body">
+                            <div class="d-flex flex-row align-items-start align-items-stretch gap-3">
+                            <div class="product-img">
+                                <img src="{{ cart.product_variant.product.image.url }}" class="rounded-3" width="100" alt="">
+                            </div>
+                                <div class="product-info flex-grow-1">
+                                    <h6 class="fw-bold mb-0 text-dark">{{ cart.product_variant.product.name }}</h6>
+                                    {% if cart.product_variant.discount_price %}
+                                    <div class="product-price d-flex align-items-center gap-2 mt-2">
+                                        
+                                        <div class="fw-bold text-dark">₹{{ cart.product_variant.discount_price }}</div>
+                                        <div class="fw-light text-muted text-decoration-line-through">₹{{ cart.product_variant.actual_price }}</div>
+                                        <div class="fw-bold text-danger">({{ cart.product_variant.offer_percentage|floatformat:00 }}% off)</div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="mt-2 hstack gap-2">
+                                        {% if cart.product_variant.name %}
+                                            <button type="button" class="btn btn-sm btn-light rounded-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSize">Size : {{ cart.product_variant.name }}</button>
+                                        {% endif %}
+
+                                        
+                                        <button type="button" class="btn btn-sm btn-light rounded-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasQty">Qty : {{ cart.quantity }}</button>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+                    
+                    
+                {% endfor %}
+            </div>
+            
+
+            
+
+            <!--end cart list-->
+
+            <!--placeorder-->
+            <div class="card rounded-3 mb-3 mt-3">
+                
+                <div class="card-body">
+                    
+                    <div class="d-flex flex-row gap-3">
+                        <div class="address-info form-check flex-grow-1">
+                            
+                            <label class="form-check-label" for="address{{ place_order.id }}">
+                                <h5 class="fw-bold mb-3 text-dark">Address</h5>
+                                <span class="fw-bold mb-0 h6">{{ place_order.first_name }} {{ place_order.last_name}}</span><br>
+                                {{ place_order.district }}, {{ place_order.place }} <br>
+                                {{ place_order.pin_code }}<br>
+                                {{ place_order.address }}<br>
+                                email: <span class="text-dark fw-bold">{{ place_order.email }}</span><br>
+                                Mobile: <span class="text-dark fw-bold">{{ place_order.phone }}</span>
+                            </label>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            <!--endplaceorder-->
+
+
+            <!--ordersummery-->
+            <div class="card rounded-3 my-3">
+                <div class="card-body">
+                    <h5 class="fw-bold mb-3 text-dark">Order Summary</h5>
+                    <div class="hstack align-items-center justify-content-between">
+                        <p class="mb-0">Total</p>
+                        <p class="mb-0">${{ actual_price_total }}</p>
+                    </div>
+                    <hr>
+                    <div class="hstack align-items-center justify-content-between">
+                    <p class="mb-0">Discount</p>
+                    <p class="mb-0 text-success">- ${{ discount }}</p>
+                    </div>
+                    <hr>
+                    <div class="hstack align-items-center justify-content-between">
+                    <p class="mb-0"></p>
+                    <p class="mb-0">${{ cart_total }}</p>
+                    </div>
+                    <hr>
+                    <div class="hstack align-items-center justify-content-between">
+                    <p class="mb-0">Delivery</p>
+                    <p class="mb-0">{{ delivery_charge }}</p>
+                    </div>
+                    <hr>
+                    <div class="hstack align-items-center justify-content-between fw-bold text-content">
+                        <p class="mb-0">Total Amount</p>
+                        <p class="mb-0">${{ total_amount }}</p>
+                    </div>
+                </div>
+            </div>
+            <!--endordersummery-->
+            
+
+            
+
+
+
+
+        </div>
+        <!--end to page content-->
+
+        <!--start to footer-->
+        <footer class="page-footer border-top fixed-bottom d-flex align-items-center justify-content-center bg-dark px-0">
+            <div class="d-grid w-100">
+                <button id="rzp-button1" class="btn btn-ecomm w-100 block-button text-white">Confirm and Pay</button>
+            </div>
+        </footer>
+        <!--end to footer-->
+
+        <!-- <button id="rzp-button1" class="btn btn-primary">Pay with Razorpay</button> -->
+
+
+        
+
+        
+        {% include 'user/components/sidenav.html' %}
+        
+
+
+    </div>
+    <!--end wrapper-->
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_GGmhwGLGUs22Xl", // Enter the Key ID generated from the Dashboard
+            "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "{{ user.first_name }} {{ user.last_name }}",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                window.location.href = '/payment/success';
+
+                alert(response.razorpay_signature + ' - Payment completed')
+            },
+            
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+            window.location.href = '/payment/field';
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+
+
+{% endblock content %}

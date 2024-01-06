@@ -1,0 +1,45 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'user/components/page-loader.html' %}
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+       
+        
+
+        <!--start to page content-->
+        <div class="page-content">
+            {% include 'user/components/alert.html' %}
+
+            <div class="card rounded-3 border-0 bg-transparent">
+            <div class="card-body">
+                <div class="text-center error-img">
+                    <img src="{% static 'user/assets/images/social-icons/check-mark.webp' %}" width="80" alt="">
+                    <h5 class="text-dark mt-4 fw-bold">Congratulation!</h5>
+                    <p class="mb-0">You have successfully completed your payment.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!--end to page content-->
+
+        <!--start to footer-->
+        <footer class="page-footer fixed-bottom border-top d-flex align-items-center px-0">
+            <div class="short-by w-100">
+            <a href="{% url 'shop' %}" class="btn btn-ecomm p-0 block-button">Continue Shopping</a>
+            </div>
+            <div class="filter-btn bg-dark w-100">
+            <a href="product-details.html" class="btn btn-ecomm p-0 text-white block-button">View Order</a>
+            </div>
+        </footer>
+        <!--end to footer-->
+
+        {% include 'user/components/sidenav.html' %}
+
+    </div>
+   <!--end wrapper-->
+
+
+{% endblock content %}

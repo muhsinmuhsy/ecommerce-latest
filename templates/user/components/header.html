@@ -1,0 +1,57 @@
+{% load static %}
+<!--start to header-->
+<header class="top-header fixed-top border-bottom d-flex align-items-center">
+    <nav class="navbar navbar-expand w-100 p-0 gap-3 align-items-center">
+        <div class="nav-button hide-from-desktop" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidenav"><a href="javascript:;"><i class="bi bi-list"></i></a></div>
+        {% if current_page == 'home' %}
+            <div class="brand-logo"><a href="{% url 'home' %}"><img src="{% static 'user/assets/images/logo.webp' %}" width="95" alt=""></a></div>
+        {% elif current_page == 'product-variant-details' %}
+            <div class="nav-button" onclick="history.back()"><a href="javascript:;"><i class="bi bi-arrow-left"></i></a></div>
+            <div class="brand-name">
+            <h6 class="mb-0 fw-bold text-dark">{{ product.name }}</h6>
+            
+            </div>
+        {% elif current_page == 'cart' %}
+            <div class="nav-button" onclick="history.back()"><a href="javascript:;"><i class="bi bi-arrow-left"></i></a></div>
+            <div class="shop-Cart">
+            <h6 class="mb-0 fw-bold text-dark">Cart</h6>
+            </div>
+        {% endif %}
+        
+        <ul class="navbar-nav justify-content-start flex-grow-1 gap-1 hide-from-mobile">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Conact Us</a>
+            </li>
+        </ul>
+
+        <form class="searchbar">
+            <div class="position-absolute top-50 translate-middle-y search-icon start-0"><i class="bi bi-search"></i></div>
+            <input class="form-control px-5" type="text" placeholder="Search for anything">
+            <div class="position-absolute top-50 translate-middle-y end-0 search-close-icon"><i class="bi bi-x-lg"></i></div>
+        </form>
+        <ul class="navbar-nav ms-auto d-flex align-items-center top-right-menu">
+            <li class="nav-item mobile-search-button">
+            <a class="nav-link" href="javascript:;"><i class="bi bi-search"></i></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="wishlist.html"><i class="bi bi-heart"></i></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link position-relative" href="{% url 'cart' %}">
+                <div class="cart-badge">{{ cart_count }}</div>
+                <i class="bi bi-bag"></i>
+            </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!--end to header-->

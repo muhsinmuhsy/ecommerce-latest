@@ -1,0 +1,430 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'user/components/page-loader.html' %}
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+
+       
+
+      <!--start to page content-->
+       <div class="page-content p-0">
+        {% include 'user/components/alert.html' %}
+          
+        <!--start product image slider-->
+        <div class="product-slider-wrapper position-relative mb-0">
+          <a href="#SharingProductIcons" data-bs-toggle="offcanvas" class="share-product position-absolute top-0 end-0 me-3 mt-3"><i class="bi bi-share"></i></a>
+          <div class="product-image-slider mb-0">
+            <div class="banner-item">
+              <a href="javascript:;" class="d-flex justify-content-center"><img src="{{ product.image.url }}" class="img-fluid rounded-0" alt="{{ product.name }}"></a>
+            </div>
+            {% if product.image_two %}
+                <div class="banner-item">
+                <a href="javascript:;" class="d-flex justify-content-center"><img src="{{ product.image_two.url }}" class="img-fluid rounded-0" alt="{{ product.name }}"></a>
+                </div>
+            {% endif %}
+            {% if product_images %}
+                {% for product_image in product_images %}
+                    <div class="banner-item">
+                    <a href="javascript:;" class="d-flex justify-content-center"><img src="{{ product_image.image.url }}" class="img-fluid rounded-0" alt="{{ product.name }}"></a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            
+          </div>
+        </div>
+        <!--start product image slider-->
+
+
+        <!--start product info-->
+        <div class="product-info p-3">
+          <h5 class="product-title fw-bold mb-1">{{ product.name }}</h5>
+          <p class="mb-0">Women Pink & Off-White Printed Kurta with Palazzos</p>
+          <div class="product-rating">
+            <div class="hstack gap-2 border p-1 mt-3 width-content">
+              <div><span class="rating-number">4.8</span><i class="bi bi-star-fill ms-1 text-warning"></i></div>
+              <div class="vr"></div>
+              <div>162 Ratings</div>
+            </div>
+          </div>
+          <hr>
+          {% if product_variant.discount_price %}
+                <div class="product-price d-flex align-items-center gap-2">
+                    <div class="h5 fw-bold text-dark">₹{{ product_variant.discount_price }}</div>
+                    <div class="h5 fw-light text-muted text-decoration-line-through">₹{{ product_variant.actual_price }}</div>
+                    <div class="h5 fw-bold text-danger">({{ product_variant.offer_percentage|floatformat:00 }}% off)</div>  
+                </div>
+            {% else %}
+            <div class="product-price d-flex align-items-center gap-2">
+                <div class="h5 fw-bold text-dark">₹{{ product_variant.actual_price }}</div>
+                
+            </div>
+          {% endif %}
+            
+          <p class="fw-bold mb-0 mt-0 text-success">inclusive of all taxes</p>
+
+          
+            {% if product_variants %}
+            {% if product_variants.0.name %}
+                <div class="size-chart mt-4">
+                    <h6 class="fw-bold mb-2 text-dark">Select Size</h6>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                    {% for product_variant in product_variants %}
+                        <div class="">
+                            <a href="{%  url 'product-variant-details' product_variant_id=product_variant.id %}">
+                                <button type="button" class="{% if product_variant.id == current_product_variant_id %}active{% else %}unactive{% endif %}">
+                                    {{ product_variant.name }}
+                                </button>
+                                
+                            </a>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% endif %}
+            
+            
+
+          <hr class="my-3">
+          <div class="product-info">
+            <h6 class="fw-bold mb-2 text-dark">Product Details</h6>
+             <p class="mb-1">{{ product.product_details }}</p>
+             
+          </div>
+          <hr class="my-3">
+          <div class="customer-ratings">
+            <h6 class="fw-bold mb-2 text-dark">Customer Ratings</h6>
+              <div class="d-flex align-items-center gap-4 gap-lg-5 flex-wrap flex-lg-nowrap">
+                <div class="">
+                  <h1 class="mb-2 fw-bold text-dark">4.8<span class="fs-5 ms-2 text-warning"><i class="bi bi-star-fill"></i></span></h1>
+                  <p class="mb-0">3.8k Verified Buyers</p>
+                </div>
+                <div class="w-100">
+                  <div class="rating-wrrap hstack gap-2 align-items-center">
+                    <p class="mb-0">5</p>
+                    <div class=""><i class="bi bi-star"></i></div>
+                    <div class="progress flex-grow-1 mb-0 rounded-3" style="height: 5px;">
+                      <div class="progress-bar bg-green" role="progressbar" style="width: 75%"></div>
+                    </div>
+                    <p class="mb-0">1528</p>
+                  </div>
+                  <div class="rating-wrrap hstack gap-2 align-items-center">
+                    <p class="mb-0">4</p>
+                    <div class=""><i class="bi bi-star"></i></div>
+                    <div class="progress flex-grow-1 mb-0 rounded-3" style="height: 5px;">
+                      <div class="progress-bar bg-green" role="progressbar" style="width: 65%"></div>
+                    </div>
+                    <p class="mb-0">253</p>
+                  </div>
+                  <div class="rating-wrrap hstack gap-2 align-items-center">
+                    <p class="mb-0">3</p>
+                    <div class=""><i class="bi bi-star"></i></div>
+                    <div class="progress flex-grow-1 mb-0 rounded-3" style="height: 5px;">
+                      <div class="progress-bar bg-purple" role="progressbar" style="width: 45%"></div>
+                    </div>
+                    <p class="mb-0">258</p>
+                  </div>
+                  <div class="rating-wrrap hstack gap-2 align-items-center">
+                    <p class="mb-0">2</p>
+                    <div class=""><i class="bi bi-star"></i></div>
+                    <div class="progress flex-grow-1 mb-0 rounded-3" style="height: 5px;">
+                      <div class="progress-bar bg-warning" role="progressbar" style="width: 35%"></div>
+                    </div>
+                    <p class="mb-0">78</p>
+                  </div>
+                  <div class="rating-wrrap hstack gap-2 align-items-center">
+                    <p class="mb-0">1</p>
+                    <div class=""><i class="bi bi-star"></i></div>
+                    <div class="progress flex-grow-1 mb-0 rounded-3" style="height: 5px;">
+                      <div class="progress-bar bg-red" role="progressbar" style="width: 25%"></div>
+                    </div>
+                    <p class="mb-0">27</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <hr class="my-3">
+          <div class="customer-reviews">
+            <h6 class="fw-bold mb-2 text-dark">Customer Reviews (875)</h6>
+            <div class="reviews-wrapper">
+              <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class=""><span class="badge bg-green rounded-0">5<i class="bi bi-star-fill ms-1"></i></span></div>
+                <div class="flex-grow-1">
+                  <p class="mb-2">This is some content from a media component. You can replace this with any content and adjust it as needed. Some quick example text to build on the card title and make.</p>
+                  <div class="review-img">
+                    <img src="assets/images/similar/01.webp" class="rounded-3" alt="" width="70">
+                  </div>
+                  <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                    <div class="hstack flex-grow-1 gap-3">
+                      <p class="mb-0">Jhon Deo</p>
+                      <div class="vr"></div>
+                      <div class="date-posted">12 June 2020</div>
+                    </div>
+                    <div class="hstack">
+                      <div class=""><i class="bi bi-hand-thumbs-up me-2"></i>68</div>
+                      <div class="mx-3"></div>
+                      <div class=""><i class="bi bi-hand-thumbs-down me-2"></i>24</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class=""><span class="badge bg-green rounded-0">4<i class="bi bi-star-fill ms-1"></i></span></div>
+                <div class="flex-grow-1">
+                  <p class="mb-2">This is some content from a media component. You can replace this with any content.</p>
+                  <div class="review-img">
+                    <img src="assets/images/similar/02.webp" class="rounded-3" alt="" width="70">
+                  </div>
+                  <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                    <div class="hstack flex-grow-1 gap-3">
+                      <p class="mb-0">Jhon Deo</p>
+                      <div class="vr"></div>
+                      <div class="date-posted">15 June 2020</div>
+                    </div>
+                    <div class="hstack">
+                      <div class=""><i class="bi bi-hand-thumbs-up me-2"></i>58</div>
+                      <div class="mx-3"></div>
+                      <div class=""><i class="bi bi-hand-thumbs-down me-2"></i>34</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class=""><span class="badge bg-warning rounded-0 text-dark">3<i class="bi bi-star-fill ms-1"></i></span></div>
+                <div class="flex-grow-1">
+                  <p class="mb-2">This is some content from a media component. You can replace this with any content and adjust it as needed.</p>
+                  <div class="review-img">
+                    <img src="assets/images/similar/04.webp" class="rounded-3" alt="" width="70">
+                  </div>
+                  <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                    <div class="hstack flex-grow-1 gap-3">
+                      <p class="mb-0">Jhon Deo</p>
+                      <div class="vr"></div>
+                      <div class="date-posted">22 June 2022</div>
+                    </div>
+                    <div class="hstack">
+                      <div class=""><i class="bi bi-hand-thumbs-up me-2"></i>98</div>
+                      <div class="mx-3"></div>
+                      <div class=""><i class="bi bi-hand-thumbs-down me-2"></i>41</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-flex flex-column flex-lg-row gap-3">
+                <div class=""><span class="badge bg-danger rounded-0">2<i class="bi bi-star-fill ms-1"></i></span></div>
+                <div class="flex-grow-1">
+                  <p class="mb-2">You can replace this with any content and adjust it as needed. Some quick example text to build on the card title and make.</p>
+                  <div class="review-img">
+                    <img src="assets/images/similar/01.webp" class="rounded-3" alt="" width="70">
+                  </div>
+                  <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                    <div class="hstack flex-grow-1 gap-3">
+                      <p class="mb-0">Jhon Deo</p>
+                      <div class="vr"></div>
+                      <div class="date-posted">22 June 2022</div>
+                    </div>
+                    <div class="hstack">
+                      <div class=""><i class="bi bi-hand-thumbs-up me-2"></i>26</div>
+                      <div class="mx-3"></div>
+                      <div class=""><i class="bi bi-hand-thumbs-down me-2"></i>89</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="d-grid">
+                <a href="reviews-and-ratings.html" class="btn btn-ecomm rounded-3 border">View All Reviws<i class="bi bi-arrow-right ms-2"></i></a>
+              </div>
+            </div>
+          </div>
+         </div>
+        <!--end product info-->
+
+
+        <!--start similar products-->
+
+        <div class="product-grid mt-2">
+          <h4 class="mb-3 h4 fw-bold section-title text-center">Similar Products</h4>
+          <div class="row row-cols-2 row-cols-md-3 g-0">
+            {% for product in category_products %}
+              <div class="col">
+                <div class="card rounded-0 border-0">
+                    <div class="position-relative overflow-hidden">
+                        <a href="{% url 'product-variant-details' product_variant_id=product.productvariant_set.first.id %}">
+                        <img src="{{ product.image.url }}" class="img-fluid rounded-0" alt="...">
+                        </a>
+                        <div class="similar-products position-absolute bottom-0 end-0 me-3 mb-3">
+                        <a href="{% url 'add-to-cart' product_variant_id=product.productvariant_set.first.id %}"  class="zoom-icon"><i class="bi bi-bag-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="hstack align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold product-short-title">{{ product.name }}</h5>
+                        
+
+                        
+                        {% if product.productvariant_set.first.id in product_wishlist %}
+                            <a href="{% url 'add-to-wishlist' product_variant_id=product.productvariant_set.first.id %}" class="text-danger">
+                                <div class="wishlist"><i class="bi bi-heart-fill"></i></div>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'add-to-wishlist' product_variant_id=product.productvariant_set.first.id %}" class="text-danger">
+                                <div class="wishlist"><i class="bi bi-heart"></i></div>
+                            </a>
+                        {% endif %}
+
+
+                        </div>
+                        <p class="mt-1 mb-0 product-short-name font-12 fw-bold">{{ product.description }}</p>
+                        <div class="product-price d-flex align-items-center gap-1 mt-2 font-12">
+                        {% if product.productvariant_set.first.discount_price %}
+                            <div class="fw-bold text-dark">₹{{ product.productvariant_set.first.discount_price }}</div>
+                            <div class="fw-light text-muted text-decoration-line-through">₹{{ product.productvariant_set.first.actual_price }}</div>
+                            <div class="fw-bold text-danger">({{ product.productvariant_set.first.offer_percentage|floatformat:00 }}% off)</div>
+                        {% else %}
+                            <div class="fw-bold text-dark">₹{{ product.actual_price }}</div>
+                        {% endif %}
+                        
+                        </div>
+                    </div>
+                </div>
+              </div>
+            {% endfor %}
+            
+
+
+            </div><!--end row-->
+          </div>
+        <!--start similar products-->
+
+
+       </div>
+     <!--end to page content-->
+
+
+<!--start sharing product-->   
+<div class="offcanvas offcanvas-bottom h-auto" tabindex="-1" id="SharingProductIcons">
+  <div class="offcanvas-header border-bottom justify-content-center">
+    <h6 class="offcanvas-title mb-0 fw-bold text-uppercase text-dark">Share This Product</h6>
+  </div>
+  <div class="offcanvas-body">
+
+    <div class="row row-cols-4 g-3">
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/whatsapp.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">WhatsApp</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/facebook.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Facebook</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/instagram.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Instagram</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/outlook.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Outlook</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/linkedin.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Linkedin</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/twitter.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Twitter</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/tiktok.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Tiktok</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/youtube.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Youtube</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/google-drive.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Drive</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/bluetooth.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">WhatsApp</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/snapchat.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Snapchat</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/vk.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Kontakte</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/chrome.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Chrome</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="share-icon-wrapper text-center">
+          <img src="assets/images/social-icons/telegram.webp" width="45" alt="">
+          <p class="share-icon-name fw-bold mb-0 mt-1 font-12">Telegram</p>
+        </div>
+      </div>
+    </div><!--end row-->
+  </div>
+</div>
+<!--end start sharing product-->
+
+
+        <!--start to footer-->
+        <footer class="page-footer fixed-bottom border-top d-flex align-items-center justify-content-between">
+            <div class="buttons d-flex flex-row gap-3 w-100">
+            <a href="{% url 'add-to-wishlist' product_variant_id=product_variant.id %}" class="btn btn-outline-dark btn-ecomm rounded-3"><i class="bi bi-suit-heart me-2"></i>Wishlist</a>
+            <a href="{% url 'add-to-cart' product_variant_id=product_variant.id %}" class="btn btn-dark btn-ecomm flex-grow-1 rounded-3"><i class="bi bi-basket2 me-2"></i>Add to cart</a>
+            </div>
+            </footer>
+            <!--end to footer-->
+        {% include 'user/components/sidenav.html' %}
+        
+
+
+    </div>
+    <!--end wrapper-->
+
+
+{% endblock content %}
+
+
+   

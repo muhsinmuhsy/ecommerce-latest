@@ -1,0 +1,377 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'user/components/page-loader.html' %}
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+       
+        
+
+        <!--start to page content-->
+        <div class="page-content">
+            {% include 'user/components/alert.html' %}
+
+            <!--start category-->
+            <div class="scrollable-menu">
+                <div class="category">
+                    <div class="d-flex align-items-center gap-3 justify-content-between">
+                        {% for category in categories %}
+                            <div class="category-img">
+                                <figure>
+                                    <a href="{% url 'category-products' category.id %}">
+                                        <img src="{{ category.image.url }}" class="category-image-size" alt="">
+                                    </a>
+                                    <figcaption>{{ category.name }}</figcaption>
+                                </figure>
+                            </div>
+                        {% endfor%}
+                        
+            
+                        <!-- Additional category items here -->
+            
+                    </div>
+                </div>
+            </div>
+        
+        
+            <!--end category-->
+
+            <div class="py-2"></div>
+
+            <!--start banner slider-->
+            <div class="slider-margin">
+                <div class="banner-slider">
+                    {% for banner_slider in banner_sliders %}
+                        <div class="banner-item">
+                            <a href="{% url 'shop' %}"><img src="{{ banner_slider.image.url }}" class="img-fluid rounded-3" alt=""></a>
+                        </div>
+                    {% endfor %}
+                    
+                    {% for offer_banner_slider in offer_banner_sliders %}
+                        <div class="banner-item">
+                        <a href="{% url 'offer-product' %}"><img src="{{ offer_banner_slider.image.url }}" class="img-fluid rounded-3" alt=""></a>
+                        </div>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+            
+            <!--end banner slider-->
+
+
+            <div class="py-2"></div>
+
+            <!--start features-->
+            <div class="features-section">
+                <div class="row row-cols-2 row-cols-md-4 g-3">
+                    <div class="col d-flex">
+                    <div class="card rounded-3 w-100">
+                        <div class="card-body">
+                        <div class="icon-wrapper text-center">
+                            <div class="noti-box mb-1 mx-auto bg-primary">
+                            <i class="bi bi-truck"></i>
+                            </div>
+                            <p class="fw-bold mb-0 text-dark">Free Delivery</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-3 w-100">
+                        <div class="card-body">
+                        <div class="icon-wrapper text-center">
+                            <div class="noti-box mb-1 mx-auto bg-purple">
+                            <i class="bi bi-credit-card"></i>
+                            </div>
+                            <p class="fw-bold mb-0 text-dark">Secure Payment</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-3 w-100">
+                        <div class="card-body">
+                        <div class="icon-wrapper text-center">
+                            <div class="noti-box mb-1 mx-auto bg-red">
+                            <i class="bi bi-minecart-loaded"></i>
+                            </div>
+                            <p class="fw-bold mb-0 text-dark">Free Returns</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-3 w-100">
+                        <div class="card-body">
+                        <div class="icon-wrapper text-center">
+                            <div class="noti-box mb-1 mx-auto bg-green">
+                            <i class="bi bi-headset"></i>
+                            </div>
+                            <p class="fw-bold mb-0 text-dark">24/7 Support</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!--end features-->
+
+            <div class="py-2"></div>
+
+            <!--start trending category-->
+            <div class="trending-category">
+                <h4 class="my-2 text-center fw-bold section-title">Trending</h4>
+                <div class="row row-cols-2 row-cols-md-3 g-3">
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/01.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Denim Shirts</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/02.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Casual Shirts</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/03.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Women Tops</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/04.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Women Shirts</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/05.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Women Jeans</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col d-flex">
+                    <div class="card rounded-0 w-100 rounded-3 overflow-hidden">
+                        <a href="shop.html"><img src=" {% static 'user/assets/images/trending/06.webp' %}" class="img-fluid" alt=""></a>
+                        <div class="card-body text-center">
+                            <p class="mb-0 fw-bold">Nightwear</p>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end trending category-->
+
+            <div class="py-2"></div>
+
+            <!--start reviews section-->
+            <div class="reviews-section">
+                <h4 class="my-2 text-center fw-bold section-title">Client Reviews</h4>
+
+                <div class="review-slider">
+                    <div class="review-item p-3 border rounded-3 bg-light">
+                            <h6 class="client-name fw-bold">Michael Clarke</h6>
+                            <div class="ratings mb-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <div class="review-text">
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some.</p>
+                            <p class="text-end mb-0 reviw-date">10/06/2022 at 14:20:18</p>
+                        </div>
+                    </div>
+                    <div class="review-item p-3 border rounded-3 bg-light">
+                        <h6 class="client-name fw-bold">Michael Clarke</h6>
+                        <div class="ratings mb-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                        <div class="review-text">
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some.</p>
+                            <p class="text-end mb-0 reviw-date">10/06/2022 at 14:20:18</p>
+                        </div>
+                    </div>
+                    <div class="review-item p-3 border rounded-3 bg-light">
+                        <h6 class="client-name fw-bold">Michael Clarke</h6>
+                        <div class="ratings mb-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            </div>
+                            <div class="review-text">
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some.</p>
+                            <p class="text-end mb-0 reviw-date">10/06/2022 at 14:20:18</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end reviews section-->
+
+            <!-------------import from shop----------------->
+
+        
+
+        
+
+            <!--start produt grid-->
+            <div class="product-grid pt-2">
+                <div class="row row-cols-2 row-cols-md-4 g-0">
+                    {% for product in products %}
+                        <div class="col">
+                            <div class="card rounded-0 border-0">
+                                <div class="position-relative overflow-hidden">
+                                    <a href="{% url 'product-variant-details' product_variant_id=product.productvariant_set.first.id %}">
+                                    <img src="{{ product.image.url }}" class="img-fluid rounded-0" alt="...">
+                                    </a>
+                                    <div class="similar-products position-absolute bottom-0 end-0 me-3 mb-3">
+                                    <a href="{% url 'add-to-cart' product_variant_id=product.productvariant_set.first.id %}"  class="zoom-icon"><i class="bi bi-bag-plus"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="hstack align-items-center justify-content-between">
+                                    <h5 class="mb-0 fw-bold product-short-title">{{ product.name }}</h5>
+                                    
+
+                                    
+                                    {% if product.productvariant_set.first.id in product_wishlist %}
+                                        <a href="{% url 'add-to-wishlist' product_variant_id=product.productvariant_set.first.id %}" class="text-danger">
+                                            <div class="wishlist"><i class="bi bi-heart-fill"></i></div>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'add-to-wishlist' product_variant_id=product.productvariant_set.first.id %}" class="text-danger">
+                                            <div class="wishlist"><i class="bi bi-heart"></i></div>
+                                        </a>
+                                    {% endif %}
+
+                                    <!-- <button class="wishlist-button" data-product-variant-id="{{ product.productvariant_set.first.id }}">Add to Wishlist</button> -->
+
+
+
+                                    </div>
+                                    <p class="mt-1 mb-0 product-short-name font-12 fw-bold">{{ product.description }}</p>
+                                    <div class="product-price d-flex align-items-center gap-1 mt-2 font-12">
+                                    {% if product.productvariant_set.first.discount_price %}
+                                        <div class="fw-bold text-dark">₹{{ product.productvariant_set.first.discount_price }}</div>
+                                        <div class="fw-light text-muted text-decoration-line-through">₹{{ product.productvariant_set.first.actual_price }}</div>
+                                        <div class="fw-bold text-danger">({{ product.productvariant_set.first.offer_percentage|floatformat:00 }}% off)</div>
+                                    {% else %}
+                                        <div class="fw-bold text-dark">₹{{ product.actual_price }}</div>
+                                    {% endif %}
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                </div><!--end row-->
+            </div>
+            <!--end produt grid-->
+
+            
+
+        </div>
+        <!--end to page content-->
+
+
+        
+
+        <!--start to footer-->
+        <footer class="page-footer fixed-bottom border-top d-flex align-items-center">
+            <nav class="navbar navbar-expand p-0 flex-grow-1">
+                <div class="navbar-nav align-items-center justify-content-between w-100">
+                <a class="nav-link" href="home.html">
+                    <div class="d-flex flex-column align-items-center">
+                    <div class="icon"><i class="bi bi-house-fill"></i></div>
+                    <div class="name">Home</div>
+                    </div>
+                </a>
+                <a class="nav-link" href="category-list.html">
+                    <div class="d-flex flex-column align-items-center">
+                    <div class="icon"><i class="bi bi-grid"></i></div>
+                    <div class="name">Category</div>
+                    </div>
+                </a>
+                <a class="nav-link" href="profile.html">
+                    <div class="d-flex flex-column align-items-center">
+                    <div class="icon"><i class="bi bi-person"></i></div>
+                    <div class="name">Profile</div>
+                    </div>
+                </a>
+                <a class="nav-link" href="contact-us.html">
+                    <div class="d-flex flex-column align-items-center">
+                    <div class="icon"><i class="bi bi-question-circle"></i></div>
+                    <div class="name">Contact</div>
+                    </div>
+                </a>
+
+                </div>
+            </nav>
+        </footer>
+            <!--end to footer-->
+        {% include 'user/components/sidenav.html' %}
+        
+
+
+    </div>
+    <!--end wrapper-->
+
+    
+
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.wishlist-button').click(function () {
+                var productVariantId = $(this).data('product-variant-id');
+                console.log('productVariantId:', productVariantId);
+
+                $.ajax({
+                    url: '/add/to/wishlist/' + productVariantId + '/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(data.message);  // You can replace this with a more user-friendly notification
+                        // Optionally, update the UI to reflect the current wishlist status
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.error("Error:", errorThrown);
+                        console.error("Status:", textStatus);
+                        console.error("Response:", xhr.responseText);
+                        alert('An error occurred during the wishlist update. See the console for details.');
+                    }
+                });
+            });
+        });
+    </script> -->
+
+
+
+
+{% endblock content %}
+
+
+   

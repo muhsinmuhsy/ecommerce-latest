@@ -1,0 +1,5 @@
+{% for offer_product in offer_products %}
+    {{ offer_product.name }}
+{% empty %}
+    <!-- Handle case when there are no offer_products -->
+{% endfor %}

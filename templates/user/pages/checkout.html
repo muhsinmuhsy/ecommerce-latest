@@ -1,0 +1,159 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+    {% include 'user/components/page-loader.html' %}
+    <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+       
+        
+
+        <!--start to page content-->
+        <div class="page-content">
+            {% include 'user/components/alert.html' %}
+
+            <!--start to footer-->
+            <footer class="page-footer-add-new-address pb-3 border-top d-flex align-items-center justify-content-center gap-3">
+                <a href="#AddNewAddress" data-bs-toggle="offcanvas" class="btn btn-ecomm rounded-3 btn-dark flex-fill">Add New Address</a>
+            </footer>
+            <!--end to footer-->
+            
+
+            <h6 class="fw-bold mb-3 py-2 rounded-3 px-3 bg-light text-dark">Select a Address</h6>
+
+            {% for place_order in place_orders %}
+                <div class="card rounded-3 mb-3">
+                    <div class="card-body">
+                        <div class="d-flex flex-row gap-3">
+                            <div class="address-info form-check flex-grow-1">
+                                <input class="form-check-input" type="radio" name="selected_address" id="address{{ place_order.id }}" data-place-order-id="{{ place_order.id }}">
+                                <label class="form-check-label" for="address{{ place_order.id }}">
+                                    <span class="fw-bold mb-0 h6">{{ place_order.first_name }} {{ place_order.last_name}}</span><br>
+                                    {{ place_order.district }}, {{ place_order.place }} <br>
+                                    {{ place_order.pin_code }}<br>
+                                    {{ place_order.address }}<br>
+                                    email: <span class="text-dark fw-bold">{{ place_order.email }}</span><br>
+                                    Mobile: <span class="text-dark fw-bold">{{ place_order.phone }}</span>
+                                </label>
+                            </div>
+                            <div class="vr"></div>
+                            <div class="d-grid gap-2 align-self-start align-self-center">
+                                <button type="button" class="btn btn-sm rounded-3"><i class="bi bi-trash"></i></button>
+                                <button type="button" class="btn btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#EditAddress"><i class="bi bi-pencil"></i></button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+                
+                
+        </div>
+        <!--end to page content-->
+
+
+
+    
+
+
+        <!--start add new address offcanvas-->   
+        <form action="{% url 'checkout' %}" method="post">
+            {% csrf_token %}
+            <div class="offcanvas offcanvas-bottom h-100 border-top-0" tabindex="-1" id="AddNewAddress">
+                <div class="offcanvas-header border-bottom">
+                    <h6 class="offcanvas-title mb-0 fw-bold text-uppercase text-dark">Add New Address</h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="form-body">
+                    <div class="">
+                        <h6 class="fw-bold mb-3">Contact Details</h6>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="first_name" required class="form-control rounded-3" id="floatingName" placeholder="Name">
+                            <label for="floatingName">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="last_name" required class="form-control rounded-3" id="floatingName" placeholder="Name">
+                            <label for="floatingName">First Name</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <input type="text" name="phone" required class="form-control rounded-3" id="floatingMobileNo" placeholder="Mobile No">
+                        <label for="floatingMobileNo">Mobile No</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" name="email" required class="form-control rounded-3" id="floatingCity" placeholder="City / District">
+                            <label for="floatingAddress">Email</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h6 class="fw-bold mb-3">Address</h6>
+                        <div class="form-floating mb-3">
+                        <input type="text" name="pin_code" required class="form-control rounded-3" id="floatingPinCode" placeholder="Pin Code">
+                        <label for="floatingPinCode">Pin Code</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <input type="text" name="address" required class="form-control rounded-3" id="floatingAddress"
+                            placeholder="Address (House No, Building, Street, Area)">
+                        <label for="floatingAddress">Address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <input type="text" name="place" required class="form-control rounded-3" id="floatingLocalityTown" placeholder="Locality/Town">
+                        <label for="floatingLocalityTown">Locality / Town</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <input type="text" name="district" required class="form-control rounded-3" id="floatingCity" placeholder="City / District">
+                        <label for="floatingAddress">City / District</label>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                </div>
+                <div class="offcanvas-footer d-grid bg-dark p-3 border-top">
+                    <button type="submit" class="btn btn-ecomm btn-dark rounded-3 flex-fill">Save Address</button>
+                </div>
+            </div>
+            <!--end add new address offcanvas-->
+        </form>
+
+        <!--start to footer-->
+        <footer class="page-footer fixed-bottom d-flex align-items-center justify-content-center bg-dark px-0">
+            <div class="d-grid">
+                <a href="{% url 'payment' place_order_id=0 %}" id="nextButton" class="btn btn-ecomm w-100 block-button text-white">Next</a>
+            </div>
+        </footer>
+        <!--end to footer-->
+
+        <!--for getting id from address radio to paymenturl-->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var radioButtons = document.querySelectorAll('input[name="selected_address"]');
+                var nextButton = document.getElementById('nextButton');
+            
+                radioButtons.forEach(function(radioButton) {
+                    radioButton.addEventListener('change', function() {
+                        // Update the href of the Next button when a radio button is selected
+                        nextButton.href = "{% url 'payment' place_order_id=0 %}".replace('0', this.getAttribute('data-place-order-id'));
+                    });
+                });
+            });
+        </script>
+
+
+
+        {% include 'user/components/sidenav.html' %}
+        
+
+
+    </div>
+    <!--end wrapper-->
+
+    
+
+    
+
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include 'user/components/header.html' %}
+
+<div class="settings">
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-address-card"></i>
+            <span style="padding-left: 10px;">
+                About Us
+            </span>
+            
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-address-book"></i>
+            <span style="padding-left: 10px;">
+                Contact Us
+            </span>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span style="padding-left: 10px;">
+                Logout
+            </span>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">Dark Mode</a>
+        <a class="list-group-item list-group-item-action text-dark bg-light ">A disabled link item</a>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

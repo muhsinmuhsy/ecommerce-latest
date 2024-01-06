@@ -1,0 +1,170 @@
+{% extends "user/components/base.html" %}
+{% load static %}
+{% block content %}
+
+{% include 'user/components/page-loader.html' %}
+
+   <!--start wrapper-->
+    <div class="wrapper">
+
+        {% include 'user/components/header.html' %}
+
+      <!--start to page content-->
+       <div class="page-content">
+            {% include 'user/components/alert.html' %}  
+        {% if carts %}
+        <!--start cart list-->
+          <div class="cart-list d-flex flex-column gap-4">
+            
+              {% for cart in carts %}
+                <div class="card rounded-3 overflow-hidden">
+                  <div class="card-body">
+                    <div class="d-flex flex-row align-items-start align-items-stretch gap-3">
+                    <div class="product-img">
+                        <img src="{{ cart.product_variant.product.image.url }}" class="rounded-3" width="100" alt="">
+                    </div>
+                      <div class="product-info flex-grow-1">
+                        <h6 class="fw-bold mb-0 text-dark">{{ cart.product_variant.product.name }}</h6>
+                        {% if cart.product_variant.discount_price %}
+                        <div class="product-price d-flex align-items-center gap-2 mt-2">
+                          
+                          <div class="fw-bold text-dark">₹{{ cart.product_variant.discount_price }}</div>
+                          <div class="fw-light text-muted text-decoration-line-through">₹{{ cart.product_variant.actual_price }}</div>
+                          <div class="fw-bold text-danger">({{ cart.product_variant.offer_percentage|floatformat:00 }}% off)</div>
+                        </div>
+                        {% endif %}
+                        <div class="mt-2 hstack gap-2">
+                          {% if cart.product_variant.name %}
+                            <button type="button" class="btn btn-sm btn-light rounded-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSize">Size : {{ cart.product_variant.name }}</button>
+                          {% endif %}
+
+                          <div style="padding-left: 20px;">
+                            <a href="{% url 'decrease-quantity' cart.id %}" class="zoom-icon text-dark"><i class="bi bi-dash-circle"></i></a>
+                            <button type="button" class="btn btn-sm btn-light rounded-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasQty">Qty : {{ cart.quantity }}</button>
+                            <a href="{% url 'increase-quantity' cart.id %}" class="zoom-icon text-dark"><i class="bi bi-plus-circle"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="card-footer bg-transparent p-0">
+                    <div class="d-flex align-items-center" style="justify-content: space-evenly;">
+                      <a href="{% url 'delete-cart' cart.id %}">
+                        <div class="d-grid flex-fill">
+                          <button class="btn btn-ecomm">Remove</button>
+                        </div>
+                      </a>
+                      
+                      <div class="vr"></div>
+                        {% if cart.product_variant.id in product_wishlist%}
+                          <a href="{% url 'add-to-wishlist' cart.product_variant.id %}">
+                            <div class="d-grid flex-fill">
+                              <button class="btn btn-ecomm">Remove from Wishlist</button>
+                            </div>
+                          </a>
+                        {% else %}
+                          <a href="{% url 'add-to-wishlist' cart.product_variant.id %}">
+                            <div class="d-grid flex-fill">
+                              <button class="btn btn-ecomm">Move to Wishlist</button>
+                            </div>
+                          </a>
+                        {% endif %}
+                      <div class="vr"></div>
+                      <a href="">
+                        <div class="d-grid flex-fill">
+                          <button class="btn btn-ecomm">By Now</button>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                
+                </div>
+              {% endfor %}
+            
+
+            
+
+          </div><!--end cart list-->
+
+
+          <!--start invoice summery-->
+          <!-- <div class="card rounded-3 my-3">
+            <div class="card-body">
+              <h5 class="fw-bold mb-3 text-dark">Apply Coupon</h5>
+              <form>
+                <div class="mb-3">
+                  <input type="email" class="form-control rounded-3" id="ApplyCouponCode" placeholder="Enter Coupon Code">
+                </div>
+                <div class="mb-0 d-grid">
+                  <button class="btn btn-dark btn-ecomm rounded-3">Apply</button>
+                </div>
+              </form>
+            </div>
+          </div> -->
+          <div class="card rounded-3 my-3">
+            <div class="card-body">
+              <h5 class="fw-bold mb-3 text-dark">Order Summary</h5>
+              <div class="hstack align-items-center justify-content-between">
+                <p class="mb-0">Total</p>
+                <p class="mb-0">${{ actual_price_total }}</p>
+              </div>
+              <hr>
+              <div class="hstack align-items-center justify-content-between">
+              <p class="mb-0">Discount</p>
+              <p class="mb-0 text-success">- ${{ discount }}</p>
+            </div>
+            <hr>
+            <div class="hstack align-items-center justify-content-between">
+              <p class="mb-0"></p>
+              <p class="mb-0">${{ cart_total }}</p>
+            </div>
+            <hr>
+            <div class="hstack align-items-center justify-content-between">
+              <p class="mb-0">Delivery</p>
+              <p class="mb-0">{{ delivery_charge }}</p>
+            </div>
+            <hr>
+            <div class="hstack align-items-center justify-content-between fw-bold text-content">
+              <p class="mb-0">Total Amount</p>
+              <p class="mb-0">${{ total_amount }}</p>
+            </div>
+            </div>
+          </div>
+          <!--start invoice summery-->
+
+        </div>
+      <!--end to page content-->
+
+      {% endif %}
+
+
+     <!--start to footer-->
+       <footer class="page-footer fixed-bottom border-top d-flex align-items-center px-0">
+          <div class="hstack align-items-center justify-content-center w-100 align-items-stretch">
+              <div class="short-by w-100 d-flex align-items-center justify-content-center">
+                  <a href="{% url 'shop' %}" class="btn btn-ecomm">Continue Shopping</a>
+              </div>
+              <div class="vr"></div>
+              <div class="filter-btn bg-dark w-100 d-flex align-items-center justify-content-center">
+                <a href="{% url 'checkout' %}" class="btn btn-ecomm text-white">Checkout</a>
+              </div>
+          </div>
+       </footer>
+       <!--end to footer-->
+
+       {% include 'user/components/sidenav.html' %}
+       
+      
+
+
+
+      
+
+
+
+
+    </div>
+   <!--end wrapper-->
+
+
+   {% endblock content %}
